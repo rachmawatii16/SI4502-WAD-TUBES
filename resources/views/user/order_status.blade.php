@@ -16,10 +16,10 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Order ID</th>
-                    <th>Food Name</th>
+                    <th>ID Pesanan</th>
+                    <th>Nama Makanan</th>
                     <th>Status</th>
-                    <th>Actions</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,7 +29,7 @@
                         <td>{{ $order->food_name }}</td>
                         <td>{{ $order->status }}</td>
                         <td>
-                            @if($order->status == 'Food Arrived')
+                            @if($order->status == 'Pesanan Sampai')
                                 <a href="{{ route('user.order.confirmReceived', $order->id) }}" class="btn btn-success">Received</a>
                             @endif
                         </td>
