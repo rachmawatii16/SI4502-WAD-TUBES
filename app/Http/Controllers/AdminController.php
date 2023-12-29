@@ -18,7 +18,7 @@ class AdminController extends Controller
             $users->delete();
             return redirect()->back()->with('success', 'User telah berhasil dihapus');
         }
-        return redirect()->back()->with('error', 'Error !!');
+        return redirect()->back()->with('error', 'Error!!');
     }
 
     function updateOrderStatus(Request $request, $id){
@@ -31,9 +31,9 @@ class AdminController extends Controller
             $order->status = $validatedData['status'];
             $order->save();
 
-            return redirect()->route('admin.orders')->with('success', 'Order status updated!');
+            return redirect()->route('admin.orders')->with('success', 'Status pesanan telah diperbaharui!');
         }
-        return redirect()->back()->with('error', 'Failed to update order status.');
+        return redirect()->back()->with('error', 'Pembaharuan Status Pesanan Gagal');
     }
 
     function viewOrders(Request $request){
