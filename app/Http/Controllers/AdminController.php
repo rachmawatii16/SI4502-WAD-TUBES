@@ -20,4 +20,25 @@ class AdminController extends Controller
         }
         return redirect()->back()->with('error', 'Error !!');
     }
+
+    function updateOrderStatus(Request $request, $id){
+        $order = Order::find($id);
+        if ($order) {   
+            $validatedData = $request->validate([
+                'status' => 'required|string',
+            ]);
+    
+            $order->status = $validatedData['status'];
+            $order->save();
+
+            return redirect()->route('admin.orders')->with('success', 'Order status updated!');
+        }
+        return redirect()->back()->with('error', 'Failed to update order status.');
+    }
+
+    function viewOrders(Request $request){
+        $orders = Order::with('user')->latest()->get();
+        return view('admin.orders', compact('orders'));
+    }
+    
 }
