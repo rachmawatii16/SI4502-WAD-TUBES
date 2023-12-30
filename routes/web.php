@@ -32,3 +32,5 @@ Route::get('/user/home', [App\Http\Controllers\UserController::class, 'home'])->
 
 Route::get('/admin/home', [App\Http\Controllers\AdminController::class, 'home'])->name('admin.home');
 Route::delete('/admin/delete/{id}', [App\Http\Controllers\AdminController::class, 'delete'])->name('admin.delete');
+Route::get('/admin/edit/{id}', [App\Http\Controllers\AdminController::class, 'edit'])->name('admin.edit');
+Route::put('/admin/update/{id}', [App\Http\Controllers\AdminController::class, 'update'])->name('admin.update');
