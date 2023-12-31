@@ -20,6 +20,6 @@ class Order extends Model
     }
 
     public function feedback(){
-        return $this->hasOne(Feedback::class); //one to one dengan model Feedback
+        return $this->hasOne(Feedback::class); 
     }
 }

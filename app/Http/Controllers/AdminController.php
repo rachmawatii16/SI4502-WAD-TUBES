@@ -10,12 +10,12 @@ use App\Models\Order;
 class AdminController extends Controller
 {
 
-    function viewOrders(Request $request){ //nah ini buat ngeliat list orderan bagian admin
+    function viewOrders(Request $request){ 
         $orders = Order::with('user')->latest()->get();
         return view('admin.orders', compact('orders'));
     }
 
-    function updateOrderStatus(Request $request, $id){ //kalo ini buat ngeupdate status orderannya yg proses, otw, uda sampai dll.
+    function updateOrderStatus(Request $request, $id){ 
         $order = Order::find($id);
 
         if ($order->status !== 'paid') {
@@ -35,7 +35,7 @@ class AdminController extends Controller
         return redirect()->back()->with('error', 'Failed to update order status.');
     }
     
-    public function cancelOrder($id){ //ini buat ngecancel order
+    public function cancelOrder($id){ 
         $order = Order::findOrFail($id);
         $order->status = 'Canceled';
         $order->delete();
