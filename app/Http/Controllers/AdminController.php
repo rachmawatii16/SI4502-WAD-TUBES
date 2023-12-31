@@ -3,27 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use Illuminate\Support\Facades\Log;
+use App\Models\Order;
+
 
 class AdminController extends Controller
 {
-    function home(){
-        $users = User::all();
-        return view('admin.home', compact('users'));
+
+    function viewOrders(Request $request){ //nah ini buat ngeliat list orderan bagian admin
+        $orders = Order::with('user')->latest()->get();
+        return view('admin.orders', compact('orders'));
     }
 
-    function delete($id){
-        $users = User::find($id);
-        if ($users){
-            $users->delete();
-            return redirect()->back()->with('success', 'User telah berhasil dihapus');
-        }
-        return redirect()->back()->with('error', 'Error!!');
-    }
-
-    function updateOrderStatus(Request $request, $id){
+    function updateOrderStatus(Request $request, $id){ //kalo ini buat ngeupdate status orderannya yg proses, otw, uda sampai dll.
         $order = Order::find($id);
-        if ($order) {   
+
+        if ($order->status !== 'paid') {
+            return back()->with('error', 'Order must be paid before status can be changed.');
+        }
+
+        if ($order) {
             $validatedData = $request->validate([
                 'status' => 'required|string',
             ]);
@@ -31,14 +30,16 @@ class AdminController extends Controller
             $order->status = $validatedData['status'];
             $order->save();
 
-            return redirect()->route('admin.orders')->with('success', 'Status pesanan telah diperbaharui!');
+            return redirect()->route('admin.orders')->with('success', 'Order status updated!');
         }
-        return redirect()->back()->with('error', 'Pembaharuan Status Pesanan Gagal');
-    }
-
-    function viewOrders(Request $request){
-        $orders = Order::with('user')->latest()->get();
-        return view('admin.orders', compact('orders'));
+        return redirect()->back()->with('error', 'Failed to update order status.');
     }
     
+    public function cancelOrder($id){ //ini buat ngecancel order
+        $order = Order::findOrFail($id);
+        $order->status = 'Canceled';
+        $order->delete();
+
+        return redirect()->back()->with('success', 'Order canceled successfullyy');
+    }
 }
