@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Login')
+@section('title', 'Registration')
 @section('content')
 <div class="container">
     <div class="mt-5">
@@ -18,8 +18,12 @@
             <div class="alert alert-success">{{session('success')}}</div>
         @endif
     </div>
-    <form action="{{ route('login.post') }}" method="POST" class="container-fluid" style="width: 500px">
+    <form action="{{route('registration.post')}}" method="POST" class="container-fluid" style="width: 500px">
         @csrf
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" class="form-control" name="name">
+        </div>
         <div class="form-group">
             <label>Email address</label>
             <input type="email" class="form-control" name="email">
@@ -27,6 +31,13 @@
         <div class="form-group">
             <label>Password</label>
             <input type="password" class="form-control" name="password">
+        </div>
+        <div class="form-group">
+            <label>Role</label>
+            <select name="role" class="form-control">
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
