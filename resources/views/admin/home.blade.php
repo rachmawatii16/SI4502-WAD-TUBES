@@ -22,14 +22,7 @@
                     <tr>
                         <th scope="row">{{ $user->id }}</th>
                         <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ $user->role }}</td>
                         <td><a href="{{ route('admin.edit', ['id' => $user->id]) }}" class="btn btn-warning btn-sm">Edit</a></td>
                         <td><a href="{{ route('admin.delete', ['id' => $user->id]) }}" class="btn btn-danger btn-sm">Delete</a></td>
-                    </tr> 
-                @endforeach
-            </tbody>
-        </table>
-
     </div>
 @endsection
