@@ -1,26 +1,8 @@
 @extends('layoutAdmin')
 @section('title', 'Admin Orders')
 @section('content')
-    <div class="container mt-4">
-        <h2 class="mb-4 text-center">All Orders</h2>
-
-        @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        <div class="list-group">
-            @forelse($orders as $order)
-                <div class="list-group-item">
-                    <h5 class="mb-3">Order ID: {{ $order->id }}</h5>
-                    <p><strong>User:</strong> {{ $order->user->name ?? 'User not found' }}</p>
-                    <p><strong>Food Name:</strong> {{ $order->food_name }}</p>
-                    <p><strong>Current Status:</strong> {{ $order->status }}</p>
-                    <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-info mb-2">Edit Order</a>
-                    <form method="POST" action="{{ route('admin.order.update', ['id' => $order->id]) }}" class="d-inline">
-                        @csrf
-                        @method('PUT')
+                @csrf
+                    @method('PUT')
                         <div class="form-group">
                             <label for="status-{{ $order->id }}">Update Status:</label>
                             <select id="status-{{ $order->id }}" name="status" class="form-control">
