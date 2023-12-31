@@ -1,17 +1,28 @@
 <?php
 
-namespace App\Models;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class Feedback extends Model
+return new class extends Migration
 {
-    use HasFactory;
-    protected $table = 'feedbacks';
-    protected $fillable = [
-        'rating',
-        'komentar',
-    ];
-}
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('feedback', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('order_id');
+            $table->text('content');
+            $table->timestamps();
 
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+        });
+    }
+
+    public function down()
+    {
+        Schema::dropIfExists('feedback');
+    }
+};
