@@ -37,8 +37,6 @@ Route::put('/admin/update/{id}', [App\Http\Controllers\AdminController::class, '
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/user/order', [UserController::class, 'showOrderForm'])->name('user.order.form');
-    Route::post('/user/order', [UserController::class, 'createOrder'])->name('user.order');
     Route::get('/user/order/status', [UserController::class, 'viewOrderStatus'])->name('user.order.status');
     Route::get('/user/order/{orderId}/confirm-received', [UserController::class, 'confirmReceived'])->name('user.order.confirmReceived');
 
