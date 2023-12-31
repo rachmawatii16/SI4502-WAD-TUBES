@@ -1,99 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layoutAdmin')
+@section('title', 'Admin Orders')
+@section('content')
+    <div class="container mt-4">
+        <h2 class="mb-4 text-center">All Orders</h2>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pemesanan Makanan Can-U</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        header,
-        footer {
-            text-align: center;
-            padding: 1em 0;
-            background-color: #FF0000;
-            color: white;
-        }
-
-        .menu {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            padding: 2em;
-        }
-
-        .menu-item {
-            border: 1px solid #ddd;
-            padding: 1em;
-            margin: 1em;
-            text-align: center;
-        }
-
-        .menu-item img {
-            width: 100%;
-            max-height: 150px;
-            object-fit: cover;
-            margin-bottom: 0.5em;
-        }
-
-        .keranjang {
-            padding: 2em;
-        }
-
-        #keranjang-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        #keranjang-list li {
-            border-bottom: 1px solid #ddd;
-            padding: 1em;
-            display: flex;
-            justify-content: space-between;
-        }
-    </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-</head>
-
-<body>
-    <div class="bg-danger">
-        <header>
-            <h1>Pemesanan Makanan Can-U</h1>
-        </header>
-
-        <section class="menu">
-            <!-- Tampilkan daftar menu makanan -->
-            <div class="menu-item">
-                <img src="food1.jpg" alt="Nama Makanan 1">
-                <h3>Nama Makanan 1</h3>
-                <p>Deskripsi singkat makanan dan harga</p>
-                <button onclick="tambahKeKeranjang(1)">Tambah ke Keranjang</button>
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
             </div>
+        @endif
 
-            <!-- Item-menu lainnya -->
+        <div class="list-group">
+            @forelse($orders as $order)
+                <div class="list-group-item">
+                    <h5 class="mb-3">Order ID: {{ $order->id }}</h5>
+                    <p><strong>User:</strong> {{ $order->user->name ?? 'User not found' }}</p>
+                    <p><strong>Food Name:</strong> {{ $order->food_name }}</p>
+                    <p><strong>Current Status:</strong> {{ $order->status }}</p>
 
-        </section>
+                    <form method="POST" action="{{ route('admin.order.update', ['id' => $order->id]) }}" class="d-inline">
+                        @csrf
+                        @method('PUT')
+                        <div class="form-group">
+                            <label for="status-{{ $order->id }}">Update Status:</label>
+                            <select id="status-{{ $order->id }}" name="status" class="form-control">
+                                <option value="In process" {{ $order->status == 'In process' ? 'selected' : '' }}>In process</option>
+                                <option value="On the way" {{ $order->status == 'On the way' ? 'selected' : '' }}>On the way</option>
+                                <option value="Food Arrived" {{ $order->status == 'Food Arrived' ? 'selected' : '' }}>Food Arrived</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Status</button>
+                    </form>
 
-        <section class="keranjang">
-            <h2>Keranjang Pemesanan</h2>
-            <ul id="keranjang-list">
-                <!-- Daftar item di keranjang -->
-            </ul>
-            <p>Total Harga: <span id="total-harga">0</span></p>
-            <button onclick="prosesPemesanan()">Proses Pemesanan</button>
-        </section>
-
-        <footer>
-            <p>&copy; 2023 Pemesanan Makanan Can-U</p>
-        </footer>
-
-        <script src="script.js"></script>
+                    <form method="POST" action="{{ route('admin.order.cancel', ['id' => $order->id]) }}" class="d-inline">
+                        @csrf
+                        <button type="submit" class="btn btn-danger ml-2">Cancel Order</button>
+                    </form>
+                </div>
+            @empty
+                <div class="list-group-item">
+                    <p>No orders found.</p>
+                </div>
+            @endforelse
+        </div>
     </div>
-</body>
-
-</html>
+@endsection
