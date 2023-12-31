@@ -4,18 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use App\Models\User;
-use App\Models\Order;
 use App\Models\Tenant;
-use App\Models\Menu;
-use App\Models\Feedback;
 
-class TenantController extends Controller
+class AdminController extends Controller
 {
-    function home(){
-        $users = User::all();
-        return view('admin.home', compact('users'));
-    }
 
     public function showTenants()
     {
@@ -69,17 +61,5 @@ class TenantController extends Controller
         $tenant->delete();
 
         return redirect()->route('admin.tenants')->with('success', 'Tenant deleted successfully.');
-    }
-
-    public function showTenant(){ 
-        $tenants = Tenant::all();
-        return view('user.choose_tenants', compact('tenants'));
-    }
-
-    public function showTenantMenu($tenantId){ 
-        $menuItems = Menu::where('tenant_id', $tenantId)->get(); 
-        $tenant = Tenant::findOrFail($tenantId);
-        return view('user.tenant_menu', compact('menuItems', 'tenant'));
-
     }
 }
