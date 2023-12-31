@@ -18,10 +18,10 @@
                 <textarea class="form-control" id="address" name="address" required></textarea>
             </div>
             <div class="form-group">
-                <label for="phone">Nomor Telepon:</label>
+                <label for="phone">Phone:</label>
                 <textarea class="form-control" id="phone" name="phone" required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary mt-2">Add Tenant</button>
+            <center><button type="submit" class="btn btn-danger mt-2">Send</button><center>
         </form>
     </div>
 @endsection
