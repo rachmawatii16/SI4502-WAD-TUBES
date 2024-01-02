@@ -39,7 +39,7 @@
                 <option value="admin">Admin</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <center><button type="submit" class="btn btn-danger px-5 w-100">Register</button><center>
     </form>
 </div>
 @endsection

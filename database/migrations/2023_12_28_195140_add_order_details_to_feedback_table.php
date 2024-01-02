@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('role')->default('user');
+        Schema::table('feedback', function (Blueprint $table) {
+            $table->string('order_number')->nullable();
+            $table->string('food_name')->nullable();
         });
     }
 
@@ -21,8 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
+        Schema::table('feedback', function (Blueprint $table) {
+            $table->dropColumn('order_number');
+            $table->dropColumn('food_name');
         });
     }
 };
