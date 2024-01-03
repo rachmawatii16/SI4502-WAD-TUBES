@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layoutAdmin')
 @section('title', 'Edit User')
 @section('content')
     <div class="container">
@@ -12,10 +12,7 @@
             </div>
             <div class="form-group">
                 <label for="role">Role:</label>
-                <select name="role" class="form-control" id="role" value="{{ $user->role }}" required>
-                    <option value="user">User</option>
-                    <option value="admin">Admin</option>
-                </select>
+                <input type="text" class="form-control" id="role" name="role" value="{{ $user->role }}" required>
             </div>
             <button type="submit" class="btn btn-primary">Update</button>
         </form>

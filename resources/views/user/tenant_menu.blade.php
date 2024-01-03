@@ -19,7 +19,7 @@
                             <form action="{{ route('user.order') }}" method="POST" class="d-inline-block">
                                 @csrf
                                 <input type="hidden" name="menu_id" value="{{ $item->id }}">
-                                <button type="submit" class="btn btn-primary">Order</button>
+                                <button type="submit" class="btn btn-secondary">Order</button>
                             </form>
                         </div>
                     </div>

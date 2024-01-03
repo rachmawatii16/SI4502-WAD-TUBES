@@ -22,7 +22,7 @@
                 <label for="phone">Nomor Telepon:</label>
                 <textarea class="form-control" id="phone" name="phone" required>{{ $tenant->phone }}</textarea>
             </div>
-            <button type="submit" class="btn btn-primary mt-2">Update Tenant</button>
+            <button type="submit" class="btn btn-secondary mt-2">Send</button>
         </form>
     </div>
 @endsection

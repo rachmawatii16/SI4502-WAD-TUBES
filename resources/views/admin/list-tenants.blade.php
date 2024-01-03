@@ -12,7 +12,7 @@
                     <p>{{ $tenant->description }}</p>
                     <p>{{ $tenant->address }}</p>
                     <p>{{ $tenant->phone }}</p>
-                    <a href="{{ route('admin.tenants.edit', $tenant->id) }}" class="btn btn-primary">Edit</a>
+                    <a href="{{ route('admin.tenants.edit', $tenant->id) }}" class="btn btn-secondary">Edit</a>
                     <form action="{{ route('admin.tenants.delete', $tenant->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')

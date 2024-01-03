@@ -19,7 +19,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $tenant->name }}</h5>
                             <p class="card-text">{{ $tenant->description }}</p>
-                            <a href="{{ route('user.tenant.menu', ['tenantId' => $tenant->id]) }}" class="btn btn-primary">View Menu</a>
+                            <a href="{{ route('user.tenant.menu', ['tenantId' => $tenant->id]) }}" class="btn btn-secondary">View Menu</a>
                         </div>
                     </div>
                 </div>
