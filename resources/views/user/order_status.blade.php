@@ -23,7 +23,7 @@
 
                     @if($orders->where('status', 'pending')->count() > 0)
                         <div class="text-center mt-4">
-                            <a href="{{ route('user.payment') }}" class="btn btn-success">Pay</a>
+                            <a href="{{ route('user.payment', ['orderId' => $order->id]) }}" class="btn btn-success">Pay</a>
                         </div>
                     @endif
                 </div>
